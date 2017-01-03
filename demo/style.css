@@ -1,0 +1,57 @@
+html, body, p, h1 {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-size: 110%;
+}
+
+a {
+	color: grey;
+}
+
+code {
+	display: block;
+	white-space: pre;
+	font-family: monospace;
+	background-color: #2C2D25;//#1b2426;
+	color: white;
+	padding: 0;
+	margin: 0;
+	line-height: 100%;
+}
+
+/* as demo http://tutsplus.github.io/syntax-highlighter-demos/prism_okaidia.html */
+/* http://codepen.io/zephyr/pen/MewjYd */
+/* https://github.com/lopeax/microlight */
+
+.attributes { /* TODO */
+	color: #a6e22e;
+}
+.functions { /* TODO functions */
+	color: #e6db74;
+}
+.braces { /* TODO braces */
+	color: white;
+}
+
+.tokens {
+	color: #FA2C7D;//#f92672;
+}
+.numbers {
+	color: #9888FF;//#e6db74;
+}
+
+.keywords {
+	color: #FA2C7D;//#66d9ef;
+}
+.punctuation {
+	color: white;//#FA2C7D;//grey;
+}
+.strings {
+	color: #E9E07F;//#a6e22e;
+}
+.comments {
+	color: #807D69;//slategray;
+}
