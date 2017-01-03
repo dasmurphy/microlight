@@ -1,8 +1,8 @@
 {
-  "author": "Dmitry Prokashev <heliosframework@gmail.com>",
-  "name": "microlight",
+  "author": "Torsten Stelling",
+  "name": "microlighted",
   "description": "highlights code in any language",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "keywords": [
     "syntax",
     "highlight",
@@ -15,9 +15,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/asvd/microlight.git"
+    "url": "git://github.com/dasmurphy/microlighted.git"
   },
-  "main": "microlight.js",
+  "main": "microlighted.js",
   "dependencies": {},
   "devDependencies": {},
   "optionalDependencies": {},

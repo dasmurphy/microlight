@@ -1,12 +1,12 @@
 {
-  "name": "microlight",
+  "name": "microlighted",
   "version": "0.0.7",
-  "homepage": "https://github.com/asvd/microlight",
+  "homepage": "https://github.com/dasmurphy/microlighted",
   "authors": [
-    "Dmitry Prokashev <heliosframework@gmail.com>"
+    "Torsten Stelling"
   ],
   "description": "highlights code in any language",
-  "main": "microlight.js",
+  "main": "microlighted.js",
   "moduleType": [
     "amd",
     "globals"
