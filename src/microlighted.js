@@ -57,14 +57,7 @@
 				lastTokenType,
 				// flag determining if token is multi-character
 				multichar,
-				node,
-
-				// calculating the colors for the style templates
-				colorArr = /(\d*\, \d*\, \d*)(, ([.\d]*))?/g.exec(
-					window.getComputedStyle(el).color
-				),
-				pxColor = 'px rgba('+colorArr[1]+',',
-				alpha = colorArr[3]||1;
+				node;
 
 			// running through characters and highlighting
 			while (prev2 = prev1,
