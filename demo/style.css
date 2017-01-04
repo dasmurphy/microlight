@@ -87,3 +87,9 @@ code {
 .comment {
 	color: #807D69;
 }
+// .color:after {
+// 	background-color: attr(data-color);
+// 	width: 10px;
+// 	height: 10px;
+// 	content: "";
+// }
