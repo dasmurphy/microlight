@@ -150,6 +150,33 @@
 					}[tokenStruct.key];
 					if (value!=undefined) tokenStruct.class.push(value);
 
+					if (tokenType==tokenTypes.openbrace) {
+						// push open brace
+						braces.push(tokens.length-1);
+					}
+					if (tokenType==tokenTypes.closebrace) {
+						// check open brace and set operator if it does not match
+						if (braces.length>0) {
+							var structIndex = braces.pop();
+							var lastStruct = tokens[structIndex];
+							var closeBrace = '';
+							// if (lastStruct.token=='(') closeBrace = ')';
+							// if (lastStruct.token=='{') closeBrace = '}';
+							// if (lastStruct.token=='[') closeBrace = ']';
+							if (lastStruct.token=='<') closeBrace = '>';
+
+							if ((token!=closeBrace)&&(lastStruct.token=='<')) {
+								lastStruct.tokenType = tokenTypes.operator;
+								lastStruct.class = ['operator'];
+							}
+							if ((token!=closeBrace)&&(token=='>')) {
+								braces.push(structIndex);
+								tokenStruct.tokenType = tokenTypes.operator;
+								tokenStruct.class = ['operator'];
+							}
+						}
+					}
+
 					if (/^(a(bstract|lias|nd|rguments|rray|s(m|sert)?|uto)|b(ase|egin|ool(ean)?|reak|yte)|c(ase|atch|har|hecked|lass|lone|ompl|onst|ontinue)|de(bugger|cimal|clare|f(ault|er)?|init|l(egate|ete)?)|do|double|e(cho|ls?if|lse(if)?|nd|nsure|num|vent|x(cept|ec|p(licit|ort)|te(nds|nsion|rn)))|f(allthrough|alse|inal(ly)?|ixed|loat|or(each)?|riend|rom|unc(tion)?)|global|goto|guard|i(f|mp(lements|licit|ort)|n(it|clude(_once)?|line|out|stanceof|t(erface|ernal)?)?|s)|l(ambda|et|ock|ong)|m(icrolight|odule|utable)|NaN|n(amespace|ative|ext|ew|il|ot|ull)|o(bject|perator|r|ut|verride)|p(ackage|arams|rivate|rotected|rotocol|ublic)|r(aise|e(adonly|do|f|gister|peat|quire(_once)?|scue|strict|try|turn))|s(byte|ealed|elf|hort|igned|izeof|tatic|tring|truct|ubscript|uper|ynchronized|witch)|t(emplate|hen|his|hrows?|ransient|rue|ry|ype(alias|def|id|name|of))|u(n(checked|def(ined)?|ion|less|signed|til)|se|sing)|v(ar|irtual|oid|olatile)|w(char_t|hen|here|hile|ith)|xor|yield)$/.test(token)) {
 						tokenStruct.class.push('token');
 					}
@@ -240,7 +267,7 @@
 			// break;
 		}
 
-		// console.log(tokens);
+		console.log(tokens);
 		for (var i=0;i<tokens.length;i++) {
 			var token = tokens[i];
 			// console.log(token);
