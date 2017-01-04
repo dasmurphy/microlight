@@ -30,12 +30,12 @@
 
 		for (i = 0; el = microlighted[i++];) {
 			var text  = el.textContent,
-				pos   = 0,	   // current position
+				pos   = 0,		// current position
 				next1 = text[0], // next character
-				chr   = 1,	   // current character
-				prev1,		   // previous character
-				prev2,		   // the one before the previous
-				token =		  // current token content
+				chr   = 1,		// current character
+				prev1,			// previous character
+				prev2,			// the one before the previous
+				token = '',		// current token content
 				// lastTokenWithoutSpaces =
 				el.innerHTML = '',  // (and cleaning the node)
 
@@ -176,12 +176,12 @@
 					// condition)
 					tokenType = 13;
 					while (![
-						1,				   //  0: whitespace
-											 //  1: operator or braces
+						1,						//  0: whitespace
+												//  1: operator or braces
 						/[\/{[(\-+*=<:;|\\.,?!&@~]/[test](chr),
-						/[\])>}]/[test](chr),//  2: closing braces
-						/[$\w]/[test](chr),  //  3: (key)word
-						chr == '/' &&		//  4: regex
+						/[\])>}]/[test](chr),	//  2: closing braces
+						/[$\w]/[test](chr),		//  3: (key)word
+						chr == '/' &&			//  4: regex
 							// previous token was an
 							// opening brace or an
 							// operator (otherwise
@@ -190,16 +190,16 @@
 							// workaround for xml
 							// closing tags
 							prev1 != '<',
-						chr == '"',		  //  5: string with "
-						chr == "'",		  //  6: string with '
-											 //  7: xml comment
+						chr == '"',				//  5: string with "
+						chr == "'",				//  6: string with '
+												//  7: xml comment
 						chr+next1+text[pos+1]+text[pos+2] == '<!--',
-						chr+next1 == '/*',   //  8: multiline comment
-						chr+next1 == '//',   //  9: single-line comment
-						chr == '#',		  // 10: hash-style comment
-											 // 11: numbers
+						chr+next1 == '/*',		//  8: multiline comment
+						chr+next1 == '//',		//  9: single-line comment
+						chr == '#',				// 10: hash-style comment
+												// 11: numbers
 						/^[0-9]$/[test](chr),
-											 // 12: hex number min. 3 with #
+												// 12: hex number min. 3 with #
 						/^#([0-9a-fA-F]){3}$/[test](chr+next1+text[pos+1]+text[pos+2])
 					][--tokenType]);
 
