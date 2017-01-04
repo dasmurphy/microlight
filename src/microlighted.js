@@ -32,7 +32,7 @@
 				chr   = 1,		// current character
 				prev1,			// previous character
 				prev2,			// the one before the previous
-				token = '',		// current token content
+				token =			// current token content
 				// lastTokenWithoutSpaces =
 				el.innerHTML = '',  // (and cleaning the node)
 
