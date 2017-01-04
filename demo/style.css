@@ -76,6 +76,7 @@ code {
 .html {
 	color: #FA2C7D;
 }
+.color,
 .boolean,
 .number {
 	color: #9888FF;
