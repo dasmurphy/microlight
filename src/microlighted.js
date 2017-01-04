@@ -29,6 +29,7 @@
 		var node;
 		var tokens = [];
 		var braces = [];
+		var braceCount = 0;
 
 		// current token type:
 		// - anything else (whitespaces / newlines)
@@ -150,16 +151,20 @@
 					}[tokenStruct.key];
 					if (value!=undefined) tokenStruct.class.push(value);
 
+					// bracket handling
 					if (tokenType==tokenTypes.openbrace) {
 						// push open brace
 						braces.push(tokens.length-1);
+						braceCount++;
 					}
 					if (tokenType==tokenTypes.closebrace) {
 						// check open brace and set operator if it does not match
 						if (braces.length>0) {
+							braceCount--;
 							var structIndex = braces.pop();
 							var lastStruct = tokens[structIndex];
 							var closeBrace = '';
+							console.log(braces,lastStruct);
 							// if (lastStruct.token=='(') closeBrace = ')';
 							// if (lastStruct.token=='{') closeBrace = '}';
 							// if (lastStruct.token=='[') closeBrace = ']';
@@ -181,12 +186,16 @@
 						}
 					}
 
+					// general tokens
 					if (/^(a(bstract|lias|nd|rguments|rray|s(m|sert)?|uto)|b(ase|egin|ool(ean)?|reak|yte)|c(ase|atch|har|hecked|lass|lone|ompl|onst|ontinue)|de(bugger|cimal|clare|f(ault|er)?|init|l(egate|ete)?)|do|double|e(cho|ls?if|lse(if)?|nd|nsure|num|vent|x(cept|ec|p(licit|ort)|te(nds|nsion|rn)))|f(allthrough|alse|inal(ly)?|ixed|loat|or(each)?|riend|rom|unc(tion)?)|global|goto|guard|i(f|mp(lements|licit|ort)|n(it|clude(_once)?|line|out|stanceof|t(erface|ernal)?)?|s)|l(ambda|et|ock|ong)|m(icrolight|odule|utable)|NaN|n(amespace|ative|ext|ew|il|ot|ull)|o(bject|perator|r|ut|verride)|p(ackage|arams|rivate|rotected|rotocol|ublic)|r(aise|e(adonly|do|f|gister|peat|quire(_once)?|scue|strict|try|turn))|s(byte|ealed|elf|hort|igned|izeof|tatic|tring|truct|ubscript|uper|ynchronized|witch)|t(emplate|hen|his|hrows?|ransient|rue|ry|ype(alias|def|id|name|of))|u(n(checked|def(ined)?|ion|less|signed|til)|se|sing)|v(ar|irtual|oid|olatile)|w(char_t|hen|here|hile|ith)|xor|yield)$/.test(token)) {
 						tokenStruct.class.push('token');
 					}
 
+					// html colors in curly brackets
+					// FIXME seems to be broken a little bit...
 					if (/^(aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgrey|darkgreen|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|grey|green|greenyellow|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgrey|lightgreen|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen)$/.test(token)&&
 						(braces.length>0)&&(tokens[braces[braces.length-1]].token=='{')) {
+						console.log(braces,braces.length,tokens[braces[braces.length-1]].token);
 						tokenStruct.class.push('color');
 					}
 
@@ -276,7 +285,7 @@
 			// break;
 		}
 
-		console.log(tokens);
+		console.log(tokens,braceCount);
 		for (var i=0;i<tokens.length;i++) {
 			var token = tokens[i];
 			// console.log(token);
