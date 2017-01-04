@@ -31,7 +31,6 @@
 				prev2,			// the one before the previous
 				token =	'',		// current token content
 				// lastTokenWithoutSpaces =
-				el.innerHTML = '',  // (and cleaning the node)
 
 				// current token type:
 				//  0: anything else (whitespaces / newlines)
@@ -55,6 +54,8 @@
 				// flag determining if token is multi-character
 				multichar,
 				node;
+
+			el.innerHTML = '';  // (and cleaning the node)
 
 			// running through characters and highlighting
 			while (prev2 = prev1,
