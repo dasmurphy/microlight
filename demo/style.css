@@ -40,22 +40,53 @@ code {
 	color: white;
 }
 
+/* old styles */
 .tokens {
-	color: #FA2C7D;//#f92672;
+	color: #FA2C7D;
 }
 .numbers {
-	color: #9888FF;//#e6db74;
+	color: #9888FF;
 }
 
 .keywords {
-	color: #FA2C7D;//#66d9ef;
+	color: #FA2C7D;
 }
 .punctuation {
-	color: white;//#FA2C7D;//grey;
+	color: white;
 }
 .strings {
-	color: #E9E07F;//#a6e22e;
+	color: #E9E07F;
 }
 .comments {
-	color: #807D69;//slategray;
+	color: #807D69;
+}
+
+/* new styles */
+.attributes { /* TODO */
+	color: #a6e22e;
+}
+.functions { /* TODO functions */
+	color: #e6db74;
+}
+.brace {
+	color: white;
+}
+.operator,
+.token,
+.html {
+	color: #FA2C7D;
+}
+.boolean,
+.number {
+	color: #9888FF;
+}
+
+.punctuation {
+	color: white;
+}
+.string {
+	color: #E9E07F;
+}
+.comment {
+	color: #807D69;
 }
