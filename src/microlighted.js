@@ -17,10 +17,7 @@
 	"use strict";
 
 	// for better compression
-	var test		  = 'test',
-		// bracket	   = 0,
-
-		i,
+	var i,
 		microlighted,
 		el;  // current microlighted element to run through
 
@@ -87,13 +84,13 @@
 					(tokenType > 8 && chr == '\n') ||
 					[ // finalize conditions for other token types
 						// 0: whitespaces
-						/\S/[test](chr),  // merged together
+						/\S/.test(chr),  // merged together
 						// 1: operators
 						1,				// consist of a single character
 						// 2: braces
 						1,				// consist of a single character
 						// 3: (key)word
-						!/[$\w]/[test](chr),
+						!/[$\w]/.test(chr),
 						// 4: regex
 						(prev1 == '/' || prev1 == '\n') && multichar,
 						// 5: string with "
@@ -109,9 +106,9 @@
 						// 10: hash comment
 						false,
 						// 11: number end
-						!/^\d+[a-z%]*$/[test](token+chr), // FIXME only html types at end...
+						!/^\d+[a-z%]*$/.test(token+chr), // FIXME only html types at end...
 						// 12: hex number
-						!/^#[0-9a-fA-F]+$/[test](token+chr)
+						!/^#[0-9a-fA-F]+$/.test(token+chr)
 					][tokenType]
 				) {
 					// appending the token to the result
@@ -148,9 +145,9 @@
 							tokenType > 3 ? 3 :
 							// otherwise tokenType == 3, (key)word
 							// (1 if regexp matches, 0 otherwise)
-							+ /^(a(bstract|lias|nd|rguments|rray|s(m|sert)?|uto)|b(ase|egin|ool(ean)?|reak|yte)|c(ase|atch|har|hecked|lass|lone|ompl|onst|ontinue)|de(bugger|cimal|clare|f(ault|er)?|init|l(egate|ete)?)|do|double|e(cho|ls?if|lse(if)?|nd|nsure|num|vent|x(cept|ec|p(licit|ort)|te(nds|nsion|rn)))|f(allthrough|alse|inal(ly)?|ixed|loat|or(each)?|riend|rom|unc(tion)?)|global|goto|guard|i(f|mp(lements|licit|ort)|n(it|clude(_once)?|line|out|stanceof|t(erface|ernal)?)?|s)|l(ambda|et|ock|ong)|m(icrolight|odule|utable)|NaN|n(amespace|ative|ext|ew|il|ot|ull)|o(bject|perator|r|ut|verride)|p(ackage|arams|rivate|rotected|rotocol|ublic)|r(aise|e(adonly|do|f|gister|peat|quire(_once)?|scue|strict|try|turn))|s(byte|ealed|elf|hort|igned|izeof|tatic|tring|truct|ubscript|uper|ynchronized|witch)|t(emplate|hen|his|hrows?|ransient|rue|ry|ype(alias|def|id|name|of))|u(n(checked|def(ined)?|ion|less|signed|til)|se|sing)|v(ar|irtual|oid|olatile)|w(char_t|hen|here|hile|ith)|xor|yield)$/[test](token)
+							+ /^(a(bstract|lias|nd|rguments|rray|s(m|sert)?|uto)|b(ase|egin|ool(ean)?|reak|yte)|c(ase|atch|har|hecked|lass|lone|ompl|onst|ontinue)|de(bugger|cimal|clare|f(ault|er)?|init|l(egate|ete)?)|do|double|e(cho|ls?if|lse(if)?|nd|nsure|num|vent|x(cept|ec|p(licit|ort)|te(nds|nsion|rn)))|f(allthrough|alse|inal(ly)?|ixed|loat|or(each)?|riend|rom|unc(tion)?)|global|goto|guard|i(f|mp(lements|licit|ort)|n(it|clude(_once)?|line|out|stanceof|t(erface|ernal)?)?|s)|l(ambda|et|ock|ong)|m(icrolight|odule|utable)|NaN|n(amespace|ative|ext|ew|il|ot|ull)|o(bject|perator|r|ut|verride)|p(ackage|arams|rivate|rotected|rotocol|ublic)|r(aise|e(adonly|do|f|gister|peat|quire(_once)?|scue|strict|try|turn))|s(byte|ealed|elf|hort|igned|izeof|tatic|tring|truct|ubscript|uper|ynchronized|witch)|t(emplate|hen|his|hrows?|ransient|rue|ry|ype(alias|def|id|name|of))|u(n(checked|def(ined)?|ion|less|signed|til)|se|sing)|v(ar|irtual|oid|olatile)|w(char_t|hen|here|hile|ith)|xor|yield)$/.test(token)
 							// html5 tokens
-							+ (/^(a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdi|bdo|bgsound|big|blink|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|command|content|data|datalist|dd|del|details|dfn|dialog|dir|div|dl|dt|element|em|embed|fieldset|figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|header|hgroup|hr|html|i|iframe|image|img|input|ins|isindex|kbd|keygen|label|legend|li|link|listing|main|map|mark|marquee|menu|menuitem|meta|meter|multicol|nav|nobr|noembed|noframes|noscript|object|ol|optgroup|option|output|p|param|picture|plaintext|pre|progress|q|rp|rt|rtc|ruby|s|samp|script|section|select|shadow|slot|small|source|spacer|span|strike|strong|style|sub|summary|sup|table|tbody|td|template|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video|wbr|xmp)$/[test](token)&&((lastToken=='<')||(lastToken=='/')))*6
+							+ (/^(a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdi|bdo|bgsound|big|blink|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|command|content|data|datalist|dd|del|details|dfn|dialog|dir|div|dl|dt|element|em|embed|fieldset|figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|header|hgroup|hr|html|i|iframe|image|img|input|ins|isindex|kbd|keygen|label|legend|li|link|listing|main|map|mark|marquee|menu|menuitem|meta|meter|multicol|nav|nobr|noembed|noframes|noscript|object|ol|optgroup|option|output|p|param|picture|plaintext|pre|progress|q|rp|rt|rtc|ruby|s|samp|script|section|select|shadow|slot|small|source|spacer|span|strike|strong|style|sub|summary|sup|table|tbody|td|template|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video|wbr|xmp)$/.test(token)&&((lastToken=='<')||(lastToken=='/')))*6
 						]);
 
 						if ((tokenType>0)&&(el.appendChild(node).className!='')) {
@@ -178,9 +175,9 @@
 					while (![
 						1,						//  0: whitespace
 												//  1: operator or braces
-						/[\/{[(\-+*=<:;|\\.,?!&@~]/[test](chr),
-						/[\])>}]/[test](chr),	//  2: closing braces
-						/[$\w]/[test](chr),		//  3: (key)word
+						/[\/{[(\-+*=<:;|\\.,?!&@~]/.test(chr),
+						/[\])>}]/.test(chr),	//  2: closing braces
+						/[$\w]/.test(chr),		//  3: (key)word
 						chr == '/' &&			//  4: regex
 							// previous token was an
 							// opening brace or an
@@ -198,9 +195,9 @@
 						chr+next1 == '//',		//  9: single-line comment
 						chr == '#',				// 10: hash-style comment
 												// 11: numbers
-						/^[0-9]$/[test](chr),
+						/^[0-9]$/.test(chr),
 												// 12: hex number min. 3 with #
-						/^#([0-9a-fA-F]){3}$/[test](chr+next1+text[pos+1]+text[pos+2])
+						/^#([0-9a-fA-F]){3}$/.test(chr+next1+text[pos+1]+text[pos+2])
 					][--tokenType]);
 
 					// console.log(chr,next1,tokenType,lastToken);
