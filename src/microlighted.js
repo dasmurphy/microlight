@@ -16,23 +16,20 @@
 }(this, function (exports) {
 	"use strict";
 
-	// for better compression
-	var i,
-		microlighted,
-		el;  // current microlighted element to run through
 
 	var reset = function(cls) {
 		// nodes to highlight
-		microlighted = document.getElementsByClassName(cls||'microlight');
+		var microlighted = document.getElementsByClassName(cls||'microlight');
+		var el;
 
-		for (i = 0; el = microlighted[i++];) {
+		for (var i = 0; el = microlighted[i++];) {
 			var text  = el.textContent,
 				pos   = 0,		// current position
 				next1 = text[0], // next character
 				chr   = 1,		// current character
 				prev1,			// previous character
 				prev2,			// the one before the previous
-				token =			// current token content
+				token =	'',		// current token content
 				// lastTokenWithoutSpaces =
 				el.innerHTML = '',  // (and cleaning the node)
 
