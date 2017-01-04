@@ -87,9 +87,56 @@ code {
 .comment {
 	color: #807D69;
 }
-// .color:after {
-// 	background-color: attr(data-color);
-// 	width: 10px;
-// 	height: 10px;
-// 	content: "";
-// }
+
+/* circles in color */
+/*.color {
+	position: relative;
+	margin-right: 14px;
+}
+.color:after {
+	// background-color: attr(data-color);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	margin-left: 2px;
+	// margin-top: -50%;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	content: "";
+	border: 1px solid white;
+}
+.color[data-color="green"]:after {
+	background-color: green;
+}
+.color[data-color="black"]:after {
+	background-color: black;
+}
+.color[data-color="white"]:after {
+	background-color: white;
+}
+*/
+
+/* underline in color */
+.color {
+	position: relative;
+}
+.color:after {
+	// background-color: attr(data-color);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	color: transparent;
+	content: attr(data-color);
+}
+.color[data-color="green"]:after {
+	border-bottom: 1px solid green;
+}
+.color[data-color="black"]:after {
+	border-bottom: 1px solid black;
+}
+.color[data-color="white"]:after {
+	border-bottom: 1px solid white;
+}
+

@@ -199,6 +199,8 @@
 						// console.log(braces,braces.length,tokens[braces[braces.length-1]].token);
 						tokenStruct.class.push('color');
 						tokenStruct.data.color = token;
+
+						// see http://stackoverflow.com/a/16948730/207691 how to add attr rules
 					}
 
 					// html and /html items (buggy)
