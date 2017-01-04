@@ -130,7 +130,8 @@
 						// multichar: multichar,
 						// pos: pos-1,
 						key: Object.keys(tokenTypes)[tokenType], // for debugging
-						class: []
+						class: [],
+						data: {}
 					};
 					tokens.push(tokenStruct);
 					// easy class creation
@@ -164,7 +165,7 @@
 							var structIndex = braces.pop();
 							var lastStruct = tokens[structIndex];
 							var closeBrace = '';
-							console.log(braces,lastStruct);
+							// console.log(braces,lastStruct);
 							// if (lastStruct.token=='(') closeBrace = ')';
 							// if (lastStruct.token=='{') closeBrace = '}';
 							// if (lastStruct.token=='[') closeBrace = ']';
@@ -195,8 +196,9 @@
 					// FIXME seems to be broken a little bit...
 					if (/^(aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgrey|darkgreen|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|grey|green|greenyellow|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgrey|lightgreen|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen)$/.test(token)&&
 						(braces.length>0)&&(tokens[braces[braces.length-1]].token=='{')) {
-						console.log(braces,braces.length,tokens[braces[braces.length-1]].token);
+						// console.log(braces,braces.length,tokens[braces[braces.length-1]].token);
 						tokenStruct.class.push('color');
+						tokenStruct.data.color = token;
 					}
 
 					// html and /html items (buggy)
@@ -299,6 +301,11 @@
 				element.appendChild(
 					node = document.createTextNode(token.token)
 				)
+			}
+			// set all data content
+			for (var key in token.data) {
+				if (!token.data.hasOwnProperty(key)) continue;
+				node.setAttribute('data-'+key,token.data[key]);
 			}
 		}
 	}
