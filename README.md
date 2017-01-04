@@ -9,6 +9,8 @@ microlighted.js
 
 Differences from original library include more detection of other things like numbers, hex, html tokens and more. It is based on css styles and not on inline style in the html code.
 
+This library can be universally used, but is optimized for HTML, CSS and Javascript.
+
 --
 
 This is a work in progress version of restructuring the library.
