@@ -174,6 +174,10 @@
 								tokenStruct.tokenType = tokenTypes.operator;
 								tokenStruct.class = ['operator'];
 							}
+						} else {
+							// edge case: no bracket open -> is operator
+							tokenStruct.tokenType = tokenTypes.operator;
+							tokenStruct.class = ['operator'];
 						}
 					}
 
