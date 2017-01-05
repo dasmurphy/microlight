@@ -140,3 +140,17 @@ code {
 	border-bottom: 1px solid white;
 }
 
+/* line counter */
+/*body {
+	counter-reset: lines;
+}
+span[data-newline="true"]:before {
+	position: absolute;
+	left: 0;
+	width: 16px;
+	background-color: grey;
+	counter-increment: lines;
+	text-align: right;
+	content: counter(lines);
+}
+*/

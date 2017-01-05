@@ -21,6 +21,7 @@
 		var pos = 0;
 		var next1 = text[0];
 		var chr = 1;
+		var lf = 0;
 		var prev1;
 		var prev2;
 		var lastToken;
@@ -30,6 +31,11 @@
 		var tokens = [];
 		var braces = [];
 		var braceCount = 0;
+		var bracesOpen = 0;
+		var bracesClose = 0;
+		var bracesOpenS = '';
+		var bracesCloseS = '';
+		var bracesS = '';
 
 		// current token type:
 		// - anything else (whitespaces / newlines)
@@ -56,6 +62,7 @@
 			whitespace: tokenTypesCount++,
 			// linefeed: tokenTypesCount++,
 			operator: tokenTypesCount++,
+			operator2: tokenTypesCount++,
 			openbrace: tokenTypesCount++,
 			closebrace: tokenTypesCount++,
 			keyword: tokenTypesCount++,
@@ -87,6 +94,7 @@
 			chr = next1;
 			next1=text[++pos];
 			multichar = token.length>1;
+			if (/\n/.test(chr)) lf++;
 
 			if (!chr|| // end of content
 				// single-line comments end with a newline
@@ -106,6 +114,7 @@
 					hashcomment: false,
 					// operators
 					operator: 1, // consist of a single character
+					operator2: 1, // consist of a single character
 					// braces
 					openbrace: 1, // consist of a single character
 					closebrace: 1, // consist of a single character
@@ -141,6 +150,7 @@
 						slashcomment: 'comment',
 						slashstarcomment: 'comment',
 						operator: 'operator',
+						operator2: 'operator2',
 						openbrace: 'brace',
 						closebrace: 'brace',
 						keyword: 'keyword',
@@ -152,16 +162,29 @@
 					}[tokenStruct.key];
 					if (value!=undefined) tokenStruct.class.push(value);
 
+					// whitespace
+					// if (tokenType==tokenTypes.whitespace) {
+					// 	if (token[0]=='\n') {
+					// 		tokenStruct.data.newline = 'true';
+					// 	}
+					// }
+
 					// bracket handling
 					if (tokenType==tokenTypes.openbrace) {
 						// push open brace
 						braces.push(tokens.length-1);
 						braceCount++;
+						bracesOpen++;
+						bracesOpenS+=token;
+						bracesS+=token;
 					}
 					if (tokenType==tokenTypes.closebrace) {
+						bracesClose++;
+						bracesCloseS+=token;
+						bracesS+=token;
 						// check open brace and set operator if it does not match
 						if (braces.length>0) {
-							braceCount--;
+							console.log(lf,'close found: ',token,braces)
 							var structIndex = braces.pop();
 							var lastStruct = tokens[structIndex];
 							var closeBrace = '';
@@ -172,15 +195,25 @@
 							if (lastStruct.token=='<') closeBrace = '>';
 
 							if ((token!=closeBrace)&&(lastStruct.token=='<')) {
+								braces.push(structIndex);
 								lastStruct.tokenType = tokenTypes.operator;
 								lastStruct.class = ['operator'];
-							}
-							if ((token!=closeBrace)&&(token=='>')) {
+								braceCount--;
+								bracesOpen--;
+								bracesCloseS+=' ';
+								console.log(lf,'< found: ',token)
+							} else if ((token!=closeBrace)&&(token=='>')) {
 								braces.push(structIndex);
 								tokenStruct.tokenType = tokenTypes.operator;
 								tokenStruct.class = ['operator'];
+								bracesClose--;
+								bracesOpenS+=' ';
+								console.log(lf,'> found: ',lastStruct.token,braces)
+							} else {
+								braceCount--;
 							}
 						} else {
+							console.log(lf,'<> found: ',token,braces)
 							// edge case: no bracket open -> is operator
 							tokenStruct.tokenType = tokenTypes.operator;
 							tokenStruct.class = ['operator'];
@@ -211,7 +244,7 @@
 						  (tokens[tokens.length-4].token=='<'))||
 						 (tokens[tokens.length-3].token=='<'))
 					) {
-						if (tokens[tokens.length-3].token=='/') {
+						if (tokens[tokens.length-3].token=='/') { // make slash to a brace
 							tokens[tokens.length-3].class = ['brace'];
 						}
 						// tokens[tokens.length-3].class.push('htmlbrace');
@@ -224,12 +257,12 @@
 						tokenStruct.class.push('boolean');
 					}
 
-					if ((token=='php')&&
-						(tokens[tokens.length-2].token=='?')&&
-						(tokens[tokens.length-3].token=='<')) {
-						tokens[tokens.length-2].class = ['brace'];
-						tokenStruct.class = ['html'];
-					}
+					// if ((token=='php')&&
+					// 	(tokens[tokens.length-2].token=='?')&&
+					// 	(tokens[tokens.length-3].token=='<')) {
+					// 	tokens[tokens.length-2].class = ['brace'];
+					// 	tokenStruct.class = ['html'];
+					// }
 					// console.log(tokenStruct);
 				}
 
@@ -257,6 +290,8 @@
 					hashcomment: chr == '#',
 					// operator
 					operator: /[\/\-+*=:|\\.,?!&@~]/.test(chr), // ; is removed
+					// operator2
+					operator2: /;/.test(chr),
 					// openning braces
 					openbrace: /[\[(<{}]/.test(chr),
 					// closing braces
@@ -289,7 +324,10 @@
 			// break;
 		}
 
-		console.log(tokens,braceCount);
+		console.log(tokens,braceCount,bracesOpen,bracesClose,bracesOpenS,bracesCloseS);
+		console.log(bracesOpenS);
+		console.log(bracesCloseS);
+		console.log(bracesS);
 		for (var i=0;i<tokens.length;i++) {
 			var token = tokens[i];
 			// console.log(token);
@@ -301,8 +339,10 @@
 				node.appendChild(document.createTextNode(token.token));
 			} else {
 				element.appendChild(
+					// node = document.createElement('span')
 					node = document.createTextNode(token.token)
 				)
+				// node.appendChild(document.createTextNode(token.token));
 			}
 			// set all data content
 			for (var key in token.data) {
