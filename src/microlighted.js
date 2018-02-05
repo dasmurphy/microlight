@@ -79,6 +79,7 @@
 			none: tokenTypesCount++
 		}
 		// console.log(tokenTypes);
+		// TODO add classes from string lists in keywords
 
 		var token = '';
 		var tokenType = 0;
