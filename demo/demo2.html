@@ -18,6 +18,11 @@
 		&lt;html&gt;
 			&lt;body&gt;
 				&lt;script type="text/javascript"&gt;
+					var functions = {
+						initialized: function(e) {
+							if (DEBUG_DATA) console.log('initialized');
+						}
+					};
 					var i=1;
 					element.innerHTML='hello world';
 					node.setAttribute('data-'+key,token.data[key]);

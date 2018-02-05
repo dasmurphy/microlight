@@ -30,18 +30,18 @@ code {
 /* http://codepen.io/zephyr/pen/MewjYd */
 /* https://github.com/lopeax/microlight */
 
-.attributes { /* TODO */
+/*.attributes {
 	color: #a6e22e;
 }
-.functions { /* TODO functions */
-	color: #e6db74;
+.functions {
+	color: #a6e22e;
 }
-.braces { /* TODO braces */
+.braces {
 	color: white;
-}
+}*/
 
 /* old styles */
-.tokens {
+/*.tokens {
 	color: #FA2C7D;
 }
 .numbers {
@@ -59,20 +59,24 @@ code {
 }
 .comments {
 	color: #807D69;
-}
+}*/
 
 /* new styles */
-.attributes { /* TODO */
+.attributes {
 	color: #a6e22e;
 }
-.functions { /* TODO functions */
-	color: #e6db74;
+.functions {
+	color: #b7d937;
 }
 .brace {
 	color: white;
 }
-.operator,
-.token,
+.operator {
+	color: #FA2C7D;
+}
+.token {
+	color: #83D7EC;
+}
 .html {
 	color: #FA2C7D;
 }
@@ -87,6 +91,9 @@ code {
 .comment {
 	color: #807D69;
 }
+
+// #83D7EC - light blue
+// #B7D937 - light green
 
 /* circles in color */
 /*.color {
