@@ -144,6 +144,10 @@
 						data: {}
 					};
 					tokens.push(tokenStruct);
+					if (tokenStruct.token=='.') {
+						lastStruct = tokenStruct;
+						lastStruct.index = tokens.length-1;
+					}
 					// easy class creation
 					var value = {
 						xmlcomment: 'comment',
@@ -276,9 +280,13 @@
 					}
 
 					// function calling js
-					// if (token=='(') {
-					// 	console.log('yeah');
-					// }
+					if ((token=='(')&&lastStruct&&(lastStruct.token=='.')) {
+						console.log('yeah',lastStruct,tokens[lastStruct.index+1]);
+						if ((tokens[lastStruct.index-1].tokenType == tokenTypes.keyword)&&
+							(tokens[lastStruct.index+1].tokenType == tokenTypes.keyword)) {
+							tokens[lastStruct.index+1].class.push('functions');
+						}
+					}
 
 					if ((token=='true')||
 						(token=='false')) {
