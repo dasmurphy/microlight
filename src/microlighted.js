@@ -185,7 +185,7 @@
 						bracesS+=token;
 						// check open brace and set operator if it does not match
 						if (braces.length>0) {
-							console.log(lf,'close found: ',token,braces)
+							// console.log(lf,'close found: ',token,braces)
 							var structIndex = braces.pop();
 							/*var*/ lastStruct = tokens[structIndex];
 							lastStruct.index = structIndex;
@@ -203,19 +203,19 @@
 								braceCount--;
 								bracesOpen--;
 								bracesCloseS+=' ';
-								console.log(lf,'< found: ',token)
+								// console.log(lf,'< found: ',token)
 							} else if ((token!=closeBrace)&&(token=='>')) {
 								braces.push(structIndex);
 								tokenStruct.tokenType = tokenTypes.operator;
 								tokenStruct.class = ['operator'];
 								bracesClose--;
 								bracesOpenS+=' ';
-								console.log(lf,'> found: ',lastStruct.token,braces)
+								// console.log(lf,'> found: ',lastStruct.token,braces)
 							} else {
 								braceCount--;
 							}
 						} else {
-							console.log(lf,'<> found: ',token,braces)
+							// console.log(lf,'<> found: ',token,braces)
 							// edge case: no bracket open -> is operator
 							tokenStruct.tokenType = tokenTypes.operator;
 							tokenStruct.class = ['operator'];
@@ -238,21 +238,52 @@
 						// see http://stackoverflow.com/a/16948730/207691 how to add attr rules
 					}
 
-					// html and /html items (buggy)
-					// FIXME does not work when attributes are there...
-					if ((token=='>')&&
-						(tokens[tokens.length-2].tokenType==tokenTypes.keyword)&&
-						(((tokens[tokens.length-3].token=='/')&&
-						  (tokens[tokens.length-4].token=='<'))||
-						 (tokens[tokens.length-3].token=='<'))
-					) {
-						if (tokens[tokens.length-3].token=='/') { // make slash to a brace
-							tokens[tokens.length-3].class = ['brace'];
+					// html and /html items
+					if ((token=='>')&&lastStruct&&(lastStruct.token='<')) { // check for more
+						var i = lastStruct.index;
+						if ((tokens[i+1].token=='!')||
+							(tokens[i+1].token=='/')) {
+							tokens[i+1].class = ['brace'];
 						}
-						// tokens[tokens.length-3].class.push('htmlbrace');
-						tokens[tokens.length-2].class.push('html');
-						// tokens[tokens.length-1].class.push('htmlbrace');
+						// console.log(i,tokens[i]);
+
+						if (i>0) {
+							var lastKeywordIndex = 0,
+								htmlTagged = false;
+							while (i<tokens.length) {
+								if (tokens[i].tokenType==tokenTypes.keyword) {
+									lastKeywordIndex = i;
+									tokens[i].class = ['keyword'];
+									if (!htmlTagged) {
+										tokens[i].class.push('html');
+										htmlTagged = true;
+									} else {
+										tokens[i].class.push('attributes');
+									}
+								}
+								i++;
+							}
+						}
 					}
+
+					// function calling js
+					// if (token=='(') {
+					// 	console.log('yeah');
+					// }
+
+					// 	(tokens[tokens.length-2].tokenType==tokenTypes.keyword)&&
+					// 	(tokens[tokens.length-2].tokenType==tokenTypes.keyword)&&
+					// 	(((tokens[tokens.length-3].token=='/')&&
+					// 	  (tokens[tokens.length-4].token=='<'))||
+					// 	 (tokens[tokens.length-3].token=='<'))
+					// ) {
+					// 	if (tokens[tokens.length-3].token=='/') { // make slash to a brace
+					// 		tokens[tokens.length-3].class = ['brace'];
+					// 	}
+					// 	// tokens[tokens.length-3].class.push('htmlbrace');
+					// 	// tokens[tokens.length-2].class.push('html');
+					// 	// tokens[tokens.length-1].class.push('htmlbrace');
+					// }
 
 					if ((token=='true')||
 						(token=='false')) {
@@ -326,10 +357,12 @@
 			// break;
 		}
 
-		console.log(tokens,braceCount,bracesOpen,bracesClose,bracesOpenS,bracesCloseS);
-		console.log(bracesOpenS);
-		console.log(bracesCloseS);
-		console.log(bracesS);
+		console.log(tokens);
+		// console.log(braceCount,bracesOpen,bracesClose,bracesOpenS,bracesCloseS);
+		// console.log(bracesOpenS);
+		// console.log(bracesCloseS);
+		// console.log(bracesS);
+		// TODO rebuild for creating text without appendChild etc. Plain JS
 		for (var i=0;i<tokens.length;i++) {
 			var token = tokens[i];
 			// console.log(token);
@@ -352,6 +385,7 @@
 				node.setAttribute('data-'+key,token.data[key]);
 			}
 		}
+		// console.log(element.innerHTML);
 	}
 
 	var highlightElements = function(elements) {
