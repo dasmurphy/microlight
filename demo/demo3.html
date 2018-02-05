@@ -13,46 +13,18 @@
 </head>
 <body>
 	<h1>Microlighted Test</h1>
-	<p><b>use:</b> microlight.highlightClass('microlight')</p>
 	<code class="microlight">
-		&lt;html&gt;
-			&lt;head&gt;
-				&lt;title&gt;My page&lt;/title&gt;
-
-				&lt;!-- some embedded js --&gt;
 				&lt;script type="text/javascript"&gt;
-					/**
-					 * Bubble-sorts the input array
-					 */
-					function(input) {
-						// switches the two elems if needed
-						// returns true if switched
-						function switchEls(idx) {
-							var switched = false;
-
 							if (input[idx] &lt; input[idx-1]) {
 								var tmp = input[idx];
 								input[idx] = input[idx-1];
 								input[idx-1] = tmp;
 								switched = true;
 							}
-
-							return switched;
-						}
-
-						var switched;
-						do {
-							switched = false;
 							for (var i = 1; i &gt; input.length; i++) {
 								switched |= switchEls(i);
 							}
-						} while (switched);
-
-						return input;
-					}
 				&lt;/script&gt;
-
-				&lt;!-- a little bit of css --&gt;
 				&lt;style&gt;
 					body {
 						background-color: black;
@@ -70,28 +42,6 @@
 					}
 				&lt;/style&gt;
 
-			&lt;/head&gt;
-			&lt;body&gt;
-				&lt;h1&gt;Welcome to my page&lt;/h1&gt;
-
-				&lt;!-- and finally php --&gt;
-				&lt;?php
-					// write "Hello world!" 10 times
-					for ($i = 1; $i &lt;=10; $i++) {
-						echo "Hello world!&lt;br/&gt;";
-					}
-				?&gt;
-
-				&lt;pre&gt;
-					#!/bin/bash
-					# hash comment like in bash
-					echo "hello world!"
-					echo 20+25
-					echo 10&gt;5
-				&lt;/pre&gt;
-
-			&lt;/body&gt;
-		&lt;/html&gt;
 	</code>
 </body>
 </html>
