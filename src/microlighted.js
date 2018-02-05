@@ -26,6 +26,7 @@
 		var prev2;
 		var lastToken;
 		var lastTokenType;
+		var lastStruct;
 		var multichar;
 		var node;
 		var tokens = [];
@@ -186,7 +187,8 @@
 						if (braces.length>0) {
 							console.log(lf,'close found: ',token,braces)
 							var structIndex = braces.pop();
-							var lastStruct = tokens[structIndex];
+							/*var*/ lastStruct = tokens[structIndex];
+							lastStruct.index = structIndex;
 							var closeBrace = '';
 							// console.log(braces,lastStruct);
 							// if (lastStruct.token=='(') closeBrace = ')';
