@@ -239,15 +239,24 @@
 					}
 
 					// html and /html items
-					if ((token=='>')&&lastStruct&&(lastStruct.token='<')) { // check for more
+					if ((token=='>')&&lastStruct&&(lastStruct.token=='<')) { // check for more
+						// console.log(lastStruct);
 						var i = lastStruct.index;
-						if ((tokens[i+1].token=='!')||
-							(tokens[i+1].token=='/')) {
-							tokens[i+1].class = ['brace'];
+						// check for validity
+						for (var j = i;j<tokens.length;j++) {
+							if (tokens[j].tokenType==tokenTypes.operator2) {
+								i = 0;
+								break;
+							}
 						}
-						// console.log(i,tokens[i]);
 
 						if (i>0) {
+							if ((tokens[i+1].token=='!')||
+								(tokens[i+1].token=='/')) {
+								tokens[i+1].class = ['brace'];
+							}
+							// console.log(i,tokens[i]);
+
 							var lastKeywordIndex = 0,
 								htmlTagged = false;
 							while (i<tokens.length) {
@@ -269,20 +278,6 @@
 					// function calling js
 					// if (token=='(') {
 					// 	console.log('yeah');
-					// }
-
-					// 	(tokens[tokens.length-2].tokenType==tokenTypes.keyword)&&
-					// 	(tokens[tokens.length-2].tokenType==tokenTypes.keyword)&&
-					// 	(((tokens[tokens.length-3].token=='/')&&
-					// 	  (tokens[tokens.length-4].token=='<'))||
-					// 	 (tokens[tokens.length-3].token=='<'))
-					// ) {
-					// 	if (tokens[tokens.length-3].token=='/') { // make slash to a brace
-					// 		tokens[tokens.length-3].class = ['brace'];
-					// 	}
-					// 	// tokens[tokens.length-3].class.push('htmlbrace');
-					// 	// tokens[tokens.length-2].class.push('html');
-					// 	// tokens[tokens.length-1].class.push('htmlbrace');
 					// }
 
 					if ((token=='true')||
