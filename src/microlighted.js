@@ -34,9 +34,9 @@
 		var braceCount = 0;
 		var bracesOpen = 0;
 		var bracesClose = 0;
-		var bracesOpenS = '';
-		var bracesCloseS = '';
-		var bracesS = '';
+		// var bracesOpenS = '';
+		// var bracesCloseS = '';
+		// var bracesS = '';
 
 		// current token type:
 		// - anything else (whitespaces / newlines)
@@ -181,13 +181,13 @@
 						braces.push(tokens.length-1);
 						braceCount++;
 						bracesOpen++;
-						bracesOpenS+=token;
-						bracesS+=token;
+						// bracesOpenS+=token;
+						// bracesS+=token;
 					}
 					if (tokenType==tokenTypes.closebrace) {
 						bracesClose++;
-						bracesCloseS+=token;
-						bracesS+=token;
+						// bracesCloseS+=token;
+						// bracesS+=token;
 						// check open brace and set operator if it does not match
 						if (braces.length>0) {
 							// console.log(lf,'close found: ',token,braces)
@@ -207,14 +207,14 @@
 								lastStruct.class = ['operator'];
 								braceCount--;
 								bracesOpen--;
-								bracesCloseS+=' ';
+								// bracesCloseS+=' ';
 								// console.log(lf,'< found: ',token)
 							} else if ((token!=closeBrace)&&(token=='>')) {
 								braces.push(structIndex);
 								tokenStruct.tokenType = tokenTypes.operator;
 								tokenStruct.class = ['operator'];
 								bracesClose--;
-								bracesOpenS+=' ';
+								// bracesOpenS+=' ';
 								// console.log(lf,'> found: ',lastStruct.token,braces)
 							} else {
 								braceCount--;
