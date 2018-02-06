@@ -1,7 +1,10 @@
 microlighted.js
 ===============
 
-*mcirolighted.js* is a fork of *microlight.js*
+*mcirolighted.js* is a complete rewritten version of *microlight.js*
+
+
+This is a work in progress version of restructuring the library and making it a little better for real syntax highlighting.
 
 --
 
@@ -13,7 +16,20 @@ This library can be universally used, but is optimized for HTML, CSS and Javascr
 
 --
 
-This is a work in progress version of restructuring the library.
+TODO
+====
+
+* name will be microlighted.js
+* html tokens in brackets or before spaces
+* attributes in brackets but not first
+* ~~numbers~~
+* number with # and text after
+* ~~functions before braces~~
+* language detection html/css/js
+* ~~brackets~~
+* ~~operators~~
+* change classes to single item
+* replace tabs with spaces option
 
 --
 
