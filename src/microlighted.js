@@ -34,9 +34,6 @@
 		var braceCount = 0;
 		var bracesOpen = 0;
 		var bracesClose = 0;
-		// var bracesOpenS = '';
-		// var bracesCloseS = '';
-		// var bracesS = '';
 
 		// current token type:
 		// - anything else (whitespaces / newlines)
@@ -78,7 +75,6 @@
 			hexnumber: tokenTypesCount++,
 			none: tokenTypesCount++
 		}
-		// console.log(tokenTypes);
 		// TODO add classes from string lists in keywords
 
 		var token = '';
@@ -181,21 +177,16 @@
 						braces.push(tokens.length-1);
 						braceCount++;
 						bracesOpen++;
-						// bracesOpenS+=token;
-						// bracesS+=token;
 					}
 					if (tokenType==tokenTypes.closebrace) {
 						bracesClose++;
-						// bracesCloseS+=token;
-						// bracesS+=token;
 						// check open brace and set operator if it does not match
 						if (braces.length>0) {
 							// console.log(lf,'close found: ',token,braces)
 							var structIndex = braces.pop();
-							/*var*/ lastStruct = tokens[structIndex];
+							lastStruct = tokens[structIndex];
 							lastStruct.index = structIndex;
 							var closeBrace = '';
-							// console.log(braces,lastStruct);
 							// if (lastStruct.token=='(') closeBrace = ')';
 							// if (lastStruct.token=='{') closeBrace = '}';
 							// if (lastStruct.token=='[') closeBrace = ']';
@@ -207,14 +198,12 @@
 								lastStruct.class = ['operator'];
 								braceCount--;
 								bracesOpen--;
-								// bracesCloseS+=' ';
 								// console.log(lf,'< found: ',token)
 							} else if ((token!=closeBrace)&&(token=='>')) {
 								braces.push(structIndex);
 								tokenStruct.tokenType = tokenTypes.operator;
 								tokenStruct.class = ['operator'];
 								bracesClose--;
-								// bracesOpenS+=' ';
 								// console.log(lf,'> found: ',lastStruct.token,braces)
 							} else {
 								braceCount--;
@@ -254,7 +243,6 @@
 
 					// html and /html items
 					if ((token=='>')&&lastStruct&&(lastStruct.token=='<')) { // check for more
-						// console.log(lastStruct);
 						var i = lastStruct.index;
 						// check for validity
 						for (var j = i;j<tokens.length;j++) {
@@ -269,7 +257,6 @@
 								(tokens[i+1].token=='/')) {
 								tokens[i+1].class = ['brace'];
 							}
-							// console.log(i,tokens[i]);
 
 							var lastKeywordIndex = 0,
 								htmlTagged = false;
@@ -291,7 +278,6 @@
 
 					// function calling js
 					if ((token=='(')&&lastStruct&&(lastStruct.token=='.')) {
-						console.log('yeah',lastStruct,tokens[lastStruct.index+1]);
 						if ((tokens[lastStruct.index-1].tokenType == tokenTypes.keyword)&&
 							(tokens[lastStruct.index+1].tokenType == tokenTypes.keyword)) {
 							tokens[lastStruct.index+1].class.push('functions');
@@ -371,10 +357,6 @@
 		}
 
 		console.log(tokens);
-		// console.log(braceCount,bracesOpen,bracesClose,bracesOpenS,bracesCloseS);
-		// console.log(bracesOpenS);
-		// console.log(bracesCloseS);
-		// console.log(bracesS);
 		// TODO rebuild for creating text without appendChild etc. Plain JS
 		for (var i=0;i<tokens.length;i++) {
 			var token = tokens[i];
@@ -398,7 +380,6 @@
 				node.setAttribute('data-'+key,token.data[key]);
 			}
 		}
-		// console.log(element.innerHTML);
 	}
 
 	var highlightElements = function(elements) {
