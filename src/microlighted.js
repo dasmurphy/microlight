@@ -34,6 +34,7 @@
 		var braceCount = 0;
 		var bracesOpen = 0;
 		var bracesClose = 0;
+		var isPhp = false;
 
 		// current token type:
 		// - anything else (whitespaces / newlines)
@@ -289,13 +290,21 @@
 						tokenStruct.class.push('boolean');
 					}
 
-					// if ((token=='php')&&
-					// 	(tokens[tokens.length-2].token=='?')&&
-					// 	(tokens[tokens.length-3].token=='<')) {
-					// 	tokens[tokens.length-2].class = ['brace'];
-					// 	tokenStruct.class = ['html'];
-					// }
-					// console.log(tokenStruct);
+					if ((token=='php')&&
+						(tokens[tokens.length-2].token=='?')&&
+						(tokens[tokens.length-3].token=='<')) {
+						tokens[tokens.length-2].class = ['brace'];
+						tokenStruct.class = ['keyword']; // not html
+						isPhp = true;
+					}
+
+					if (isPhp&&
+						(token=='>')&&
+						(tokens[tokens.length-2].token=='?')) {
+						tokens[tokens.length-2].class = ['brace'];
+						tokenStruct.class = ['brace'];
+						isPhp = false;
+					};
 				}
 
 				// FIXME the last tokens...
