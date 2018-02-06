@@ -243,6 +243,15 @@
 						// see http://stackoverflow.com/a/16948730/207691 how to add attr rules
 					}
 
+					if (tokenStruct.tokenType==tokenTypes.hexnumber) {
+						tokenStruct.class.push('hex');
+
+						if (token.length==7) {
+							tokenStruct.class.push('color');
+							tokenStruct.data.color = token;
+						}
+					}
+
 					// html and /html items
 					if ((token=='>')&&lastStruct&&(lastStruct.token=='<')) { // check for more
 						// console.log(lastStruct);
