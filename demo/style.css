@@ -19,11 +19,11 @@ code {
 	white-space: -o-pre-wrap;    /* Opera 7 */
 	word-wrap: break-word;       /* Internet Explorer 5.5+ */
 	font-family: monospace;
-	background-color: #2C2D25;//#1b2426;
+	background-color: #2C2D25;/*#1b2426;*/
 	color: white;
 	padding: 0;
 	margin: 0;
-	line-height: 100%;
+	/*line-height: 100%;*/
 }
 
 /* as demo http://tutsplus.github.io/syntax-highlighter-demos/prism_okaidia.html */
@@ -92,8 +92,8 @@ code {
 	color: #807D69;
 }
 
-// #83D7EC - light blue
-// #B7D937 - light green
+/* #83D7EC - light blue */
+/* #B7D937 - light green */
 
 /* circles in color */
 /*.color {
