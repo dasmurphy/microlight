@@ -290,6 +290,7 @@
 						tokenStruct.class.push('boolean');
 					}
 
+					// php detection support
 					if ((token=='php')&&
 						(tokens[tokens.length-2].token=='?')&&
 						(tokens[tokens.length-3].token=='<')) {
@@ -365,7 +366,8 @@
 			// break;
 		}
 
-		console.log(tokens);
+		// console.log(tokens);
+
 		// TODO rebuild for creating text without appendChild etc. Plain JS
 		for (var i=0;i<tokens.length;i++) {
 			var token = tokens[i];
